@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
+    
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
@@ -19,12 +17,16 @@ class DefaultController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/pruebas", name="pruebas")
-     */
+    
     public function pruebasAction(){
 
-        echo "Hola Mundo NPM";
+        //echo "HOLA MUNDO NOPM";
+        $em =  $this->getDoctrine()->getManager();
+        $userRepo = $em->getRepository('BackendBundle:User');
+        $users = $userRepo->findAll();
+
+        var_dump($users);
+        
 
         die();
     }
