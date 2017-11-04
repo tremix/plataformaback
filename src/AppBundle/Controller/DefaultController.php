@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Services\JwtAuth;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -86,9 +87,13 @@ class DefaultController extends Controller
 
             if($email != null && count($validate_email) == 0 && $password != null){
 
+                $jwt_auth = $this->get(JwtAuth::class);
+                $signup = $jwt_auth->signup($email,$password);
+
                 $data = array(
                    'status' => 'success' ,
-                   'data' => 'OK'
+                   'data' => 'OK',
+                    'signup' => $signup
                 );
             }
             else  { 
