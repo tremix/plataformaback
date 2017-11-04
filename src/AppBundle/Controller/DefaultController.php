@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use AppBundle\Services\Helpers;
 
 class DefaultController extends Controller
 {
@@ -25,9 +27,29 @@ class DefaultController extends Controller
         $userRepo = $em->getRepository('BackendBundle:User');
         $users = $userRepo->findAll();
 
-        var_dump($users);
+        /*var_dump($users[0]);
+        die();
+        */
+
+        /*return new JsonResponse(array(
+            'status' => 'success',
+            'users' => $users[0]->getName()
+        ));
+        */
+
+        $helpers = $this->get(Helpers::class);
+        /*echo $helpers->holaMundo();
+        die();*/
+
+        return $helpers->json($users);
+        die();
+
+        return $this->json(array(
+            'status' => 'success',
+            'users' => $users[0]->getName()
+        ));
         
 
-        die();
+        
     }
 }
